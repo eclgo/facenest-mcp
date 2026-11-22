@@ -17,6 +17,8 @@ Every entry is dated; the dates are commit dates.
   `tests/test_docs.py` now asserts those files exist, that the links in them point at pages that
   are in the tree, and that the contributor guide names the real test command and the two
   documentation generators.
+- A code of conduct: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md). Conduct reports go to the same
+  address as security reports, with a different subject prefix, and stay private.
 
 ## [0.2.12] - 2026-11-22
 
