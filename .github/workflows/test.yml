@@ -1,0 +1,41 @@
+name: tests
+
+# CI = continuous integration: every push and every pull request runs the unit suite.
+# The suite is stdlib-only and needs no running FaceNest, so this job costs nothing but a runner.
+# No artifacts are uploaded: the suite prints text, and nothing here needs to be stored.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  unittest:
+    # ubuntu-22.04 is pinned for the 3.9 leg: the Ubuntu 26.04 runner image has no x64
+    # build of Python 3.9 any more, and setup-python fails with
+    # "The version '3.9' with architecture 'x64' was not found for Ubuntu 26.04".
+    # The adapter still supports 3.9, so that leg stays - on the image that ships it.
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-22.04
+            python-version: "3.9"
+          - os: ubuntu-latest
+            python-version: "3.12"
+          - os: ubuntu-latest
+            python-version: "3.13"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Show the tool surface (generated artifact check)
+        run: python --version && python -m compileall -q facenest_mcp
+      - name: Unit tests (protocol / error text / documentation gates)
+        run: python -m unittest discover -s tests -v
