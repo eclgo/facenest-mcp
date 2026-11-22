@@ -344,6 +344,6 @@ CI (GitHub Actions — continuous integration: every push runs this suite) is co
 **If this adapter saved you some time, a ⭐ helps more people on Claude / Cursor find it.**
 It is also a signal for us: local-first + an auditable protocol is a road worth keeping.
 
-[Website](https://facenest.net) · [Download](https://facenest.net/download) · [Quick start](docs/QUICKSTART.md) · [Docs](docs/AGENT_GUIDE.md) · [Architecture](docs/ARCHITECTURE.md) · [Tool reference](docs/TOOLS.md) · [Troubleshooting](docs/TROUBLESHOOTING.md) · [Changelog](CHANGELOG.md) · [Issues](https://github.com/eclgo/facenest-mcp/issues)
+[Website](https://facenest.net) · [Download](https://facenest.net/download) · [Quick start](docs/QUICKSTART.md) · [Docs](docs/AGENT_GUIDE.md) · [Architecture](docs/ARCHITECTURE.md) · [Tool reference](docs/TOOLS.md) · [Troubleshooting](docs/TROUBLESHOOTING.md) · [Changelog](CHANGELOG.md) · [Issues](https://github.com/eclgo/facenest-mcp/issues) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md)
 
 </div>

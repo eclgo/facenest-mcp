@@ -1,0 +1,53 @@
+name: Feature request
+description: A capability you would like the adapter to have
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    value: |
+      Say what you are trying to do, not which button you want. The adapter is thin by design: it
+      publishes what the app can serve on this machine, in plain JSON, with no dependencies.
+
+      Check first:
+      [Tool reference](https://github.com/eclgo/facenest-mcp/blob/main/docs/TOOLS.md) (what each
+      tool takes and returns, read/write, per-tool limits) and
+      [Architecture](https://github.com/eclgo/facenest-mcp/blob/main/docs/ARCHITECTURE.md) (which
+      file owns which job). If a tool already covers it, a report telling us *where you got lost*
+      is worth more than a request for a new tool.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What you are trying to do
+      description: The task and the constraint that made it hard.
+      placeholder: |
+        I want to hand an agent my wedding album and have it pick frames worth printing.
+        I keep getting results from the whole library instead of the album.
+    validations:
+      required: true
+  - type: textarea
+    id: usage
+    attributes:
+      label: How you would use it
+      description: The tool call you would write if this existed, and what you would do with the answer.
+    validations:
+      required: true
+  - type: textarea
+    id: current-workaround
+    attributes:
+      label: What you do today instead
+      description: The chain of calls you use now, and where it breaks. This is usually what tells us the real gap.
+  - type: textarea
+    id: touches
+    attributes:
+      label: Which tools and pages it touches
+      description: "Guesses are fine — names from the tool reference are enough."
+      placeholder: "facenest_query_photos, facenest_pick_best_photos, docs/TOOLS.md"
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Expectations
+      options:
+        - label: I know tools that change the library stay off by default (the app switches them on), and this request does not ask to change that default
+          required: true
+        - label: I checked the tool reference and no existing tool covers this
+          required: false

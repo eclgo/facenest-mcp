@@ -321,5 +321,64 @@ class ToolsDocTest(unittest.TestCase):
                                    + "\n".join(hits))
 
 
+class CommunityFilesTest(unittest.TestCase):
+    """The repository speaks to people, not only to agents.
+
+    A public repository is judged by its front door: where to report a security problem, how to
+    build and test, and what an issue report must contain. Those files drift silently like any
+    other doc, so their existence, their contact address and their links are asserted here.
+    """
+
+    FRONT_DOOR = ("SECURITY.md", "CONTRIBUTING.md")
+    TEMPLATES = (".github/ISSUE_TEMPLATE/bug_report.yml",
+                 ".github/ISSUE_TEMPLATE/feature_request.yml",
+                 ".github/ISSUE_TEMPLATE/config.yml")
+    CONTACT = "support@facenest.net"
+
+    def test_front_door_files_exist(self):
+        for path in self.FRONT_DOOR + self.TEMPLATES:
+            self.assertTrue(os.path.isfile(os.path.join(ROOT, path.replace("/", os.sep))), path)
+
+    def test_security_policy_names_the_public_contact(self):
+        policy = read("SECURITY.md")
+        self.assertIn(self.CONTACT, policy)
+        # The git commit author address is not a contact address; it cannot receive mail.
+        self.assertNotIn("eclgo@users.noreply", policy)
+        # The adapter's whole network surface, stated where a reader can find it.
+        self.assertIn("127.0.0.1", policy)
+
+    def test_issue_templates_link_pages_that_exist(self):
+        pat = re.compile(r"github\.com/eclgo/facenest-mcp/(?:blob/main/|security/policy)")
+        for path in self.TEMPLATES:
+            text = read(*path.split("/"))
+            for blob_path in re.findall(
+                    r"https://github\.com/eclgo/facenest-mcp/blob/main/([A-Za-z0-9_./-]+)", text):
+                self.assertTrue(os.path.isfile(os.path.join(ROOT, blob_path.replace("/", os.sep))),
+                                "%s links %s, which is not in the tree" % (path, blob_path))
+            if "security/policy" in text:
+                self.assertTrue(os.path.isfile(os.path.join(ROOT, "SECURITY.md")))
+            self.assertTrue(pat.search(text) or "facenest.net" in text,
+                            "%s has no link a reader can follow" % path)
+
+    def test_templates_ask_for_the_two_answers_that_matter(self):
+        bug = read(*".github/ISSUE_TEMPLATE/bug_report.yml".split("/"))
+        self.assertIn("id: environment", bug)     # versions and the client name
+        self.assertIn("id: reproduce", bug)       # smallest sequence that shows it
+        self.assertIn("selftest", bug)            # the one line that proves reachability
+        self.assertIn("label: Before posting", bug)
+        config = read(*".github/ISSUE_TEMPLATE/config.yml".split("/"))
+        self.assertIn("blank_issues_enabled: false", config)
+        self.assertIn(self.CONTACT, config)
+
+    def test_contributing_names_the_real_commands_and_generators(self):
+        guide = read("CONTRIBUTING.md")
+        self.assertIn("python -m unittest discover -s tests", guide)
+        self.assertIn("type(scope)", guide)
+        for script in ("gen_tools_doc.py", "gen_doc_toc.py"):
+            self.assertIn(script, guide)
+            self.assertTrue(os.path.isfile(os.path.join(ROOT, "scripts", script)), script)
+        self.assertIn("squash", guide.lower())
+
+
 if __name__ == "__main__":
     unittest.main()

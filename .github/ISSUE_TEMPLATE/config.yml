@@ -1,0 +1,23 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security report — email, please, not an issue
+    url: https://github.com/eclgo/facenest-mcp/security/policy
+    about: >-
+      Vulnerabilities go to support@facenest.net (subject starting with "mcp:"). A public issue is
+      a working report to everyone, including people who have not patched anything.
+
+  - name: Install and client configuration
+    url: https://github.com/eclgo/facenest-mcp/blob/main/docs/QUICKSTART.md
+    about: Start here. The config files for the clients people use are on this page, with the self-test line that proves the adapter reached the app.
+
+  - name: Error codes and their fixes
+    url: https://github.com/eclgo/facenest-mcp/blob/main/docs/TROUBLESHOOTING.md
+    about: Every ERR_ code with its cause, its fix, and what to check first. If your client log shows a code, look for it here before opening an issue.
+
+  - name: What each tool takes and returns
+    url: https://github.com/eclgo/facenest-mcp/blob/main/docs/TOOLS.md
+    about: Parameter tables, read/write, per-tool limits. This page is generated from the tool schema, so it cannot be out of date.
+
+  - name: FaceNest app download
+    url: https://facenest.net/download
+    about: The adapter needs the app running on the same machine. The free tier is enough to try it.

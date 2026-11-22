@@ -1,0 +1,75 @@
+name: Bug report
+description: The adapter does something it should not, or fails to return something it should
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    value: |
+      Two lines answer most reports: the self-test output, and the exact tool call with its
+      arguments. Check
+      [Troubleshooting](https://github.com/eclgo/facenest-mcp/blob/main/docs/TROUBLESHOOTING.md)
+      first — every `ERR_` code there names its cause and its fix, and a code in your client's
+      log belongs on that page.
+
+      Do not paste photo paths, the endpoint file, or its token. Describe them
+      (`a photo in album 2024-trip`) — the cause is never the path itself.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: The tool you called, the arguments, and what came back. Paste text, not a description of a screenshot.
+      placeholder: |
+        facenest_pick_best_photos scope={kind:"album", album_name:"2024-trip"} top=5
+        returned 0 photos, no note
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+      description: What the tool should have returned in this case.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Smallest sequence that shows it, including anything you did in the app first.
+      placeholder: |
+        1. opened the app, album "2024-trip" has 300 photos
+        2. asked the agent for the 5 best photos in that album
+        3. agent reported 0 and showed no note
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: The versions and the client matter more than the hardware.
+      placeholder: |
+        FaceNest app: 1.4.0
+        adapter: 0.2.12 (from `facenest-mcp --selftest`)
+        OS: Windows 11
+        Python: 3.12
+        MCP client: Claude Desktop / other (name it)
+        writes allowed in the app: yes / no
+    validations:
+      required: true
+  - type: textarea
+    id: selftest
+    attributes:
+      label: Self-test line
+      description: "Output of `facenest-mcp --selftest` — one line, it names the app version, how many photos it sees, and the write state. Redact anything you would not post publicly."
+      render: text
+      placeholder: "OK  http://127.0.0.1:<port>  api=1  images=1234  write_allowed=false"
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before posting
+      options:
+        - label: I checked the error codes in Troubleshooting and my case is not there
+          required: true
+        - label: I removed photo paths, the endpoint file path and any token from what I pasted
+          required: true
+        - label: The app is running with MCP switched on, and the self-test reaches it (exit code 0)
+          required: false
