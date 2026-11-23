@@ -329,6 +329,6 @@ CI(GitHub Actions,持续集成 —— 每次 push 自动跑上面这套测试)�
 **如果你觉得这个适配器省了你一点时间,点个 ⭐ 会让更多用 Claude / Cursor 的人找到它。**
 这也是一个讯号:告诉我们“本机优先 + 可审协议”这条路值得继续走。
 
-[官网](https://facenest.net) · [下载](https://facenest.net/download) · [快速上手](docs/QUICKSTART.md) · [文档](docs/AGENT_GUIDE.md) · [架构](docs/ARCHITECTURE.zh-CN.md) · [工具清单](docs/TOOLS.md) · [排错](docs/TROUBLESHOOTING.md) · [更新记录](CHANGELOG.md) · [Issues](https://github.com/eclgo/facenest-mcp/issues) · [参与贡献](CONTRIBUTING.md) · [安全报告](SECURITY.md)
+[官网](https://facenest.net) · [下载](https://facenest.net/download) · [快速上手](docs/QUICKSTART.md) · [文档](docs/AGENT_GUIDE.md) · [架构](docs/ARCHITECTURE.zh-CN.md) · [工具清单](docs/TOOLS.md) · [排错](docs/TROUBLESHOOTING.md) · [更新记录](CHANGELOG.md) · [Issues](https://github.com/eclgo/facenest-mcp/issues) · [参与贡献](CONTRIBUTING.md) · [安全报告](SECURITY.md) · [行为准则](CODE_OF_CONDUCT.md)
 
 </div>

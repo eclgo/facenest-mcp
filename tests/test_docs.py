@@ -329,7 +329,7 @@ class CommunityFilesTest(unittest.TestCase):
     other doc, so their existence, their contact address and their links are asserted here.
     """
 
-    FRONT_DOOR = ("SECURITY.md", "CONTRIBUTING.md")
+    FRONT_DOOR = ("SECURITY.md", "CONTRIBUTING.md", "CODE_OF_CONDUCT.md")
     TEMPLATES = (".github/ISSUE_TEMPLATE/bug_report.yml",
                  ".github/ISSUE_TEMPLATE/feature_request.yml",
                  ".github/ISSUE_TEMPLATE/config.yml")
@@ -346,6 +346,13 @@ class CommunityFilesTest(unittest.TestCase):
         self.assertNotIn("eclgo@users.noreply", policy)
         # The adapter's whole network surface, stated where a reader can find it.
         self.assertIn("127.0.0.1", policy)
+
+    def test_conduct_reports_have_their_own_subject_prefix(self):
+        # Two kinds of private report share one mailbox; the prefix is what keeps them apart in
+        # a shared inbox, so it is asserted, not assumed.
+        coc = read("CODE_OF_CONDUCT.md")
+        self.assertIn(self.CONTACT, coc)
+        self.assertIn("conduct:", coc)
 
     def test_issue_templates_link_pages_that_exist(self):
         pat = re.compile(r"github\.com/eclgo/facenest-mcp/(?:blob/main/|security/policy)")
