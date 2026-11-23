@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/img/logo.png" alt="FaceNest" width="96">
+<img src="https://raw.githubusercontent.com/eclgo/facenest-mcp/main/docs/img/logo.png" alt="FaceNest" width="96">
 
 # facenest-mcp
 
@@ -26,7 +26,7 @@
 > FaceNest 是一个**本机优先**的照片管理器:人脸、标签、AI 描述、语义索引全部跑在你自己的电脑上。
 > 本仓库只开源**适配器**(MIT);应用本体闭源。**照片、视频、索引都不会离开你的电脑。**
 
-<img src="docs/img/mcp-loop-880.gif" alt="46 秒实录循环:相册按清晰度挑候选 → 编号预览墙 → 按编号确认建相册;视频按笑容挑帧 → 收藏成照片" width="100%">
+<img src="https://raw.githubusercontent.com/eclgo/facenest-mcp/main/docs/img/mcp-loop-880.gif" alt="46 秒实录循环:相册按清晰度挑候选 → 编号预览墙 → 按编号确认建相册;视频按笑容挑帧 → 收藏成照片" width="100%">
 
 <p align="center"><sub>一段 46 秒的本机实录:AI 助理真正回复的部分是实时播放(未加速),工具调用与索引等待做了剪短。全程在本机:先在相册里按清晰度挑出候选、排成带编号的预览墙、由用户按编号确认建成相册;再在视频里按笑容挑帧、收藏成照片。助手不自行动手。</sub></p>
 
@@ -59,10 +59,8 @@
 
 ```bash
 # 1) App 里:设置 → AI agent(MCP)→ 打开“开放 MCP 服务”,复制 endpoint 文件路径
-# 2) 装适配器
-git clone https://github.com/eclgo/facenest-mcp.git
-cd facenest-mcp
-python -m pip install -e .
+# 2) 装适配器(已上 PyPI)
+python -m pip install facenest-mcp
 
 # 3) 自检(不启动客户端也能验证)
 facenest-mcp --selftest
@@ -79,12 +77,11 @@ facenest-mcp --selftest
 > ⚠️ 客户端配置请用**绝对路径**;自动检测依赖进程工作目录,在 GUI 客户端里不可靠。
 
 <details>
-<summary>还没上 PyPI?有两个替代装法</summary>
+<summary>不想装?不想用 PyPI?三条替代路</summary>
 
-- **今天就能用(不用等 PyPI)**:`uvx --from git+https://github.com/eclgo/facenest-mcp facenest-mcp --selftest`
-  —— `uv`/`uvx` 会直接从 GitHub 拉下来跑,不必 `git clone`,也不必 `pip install -e .`。
-- 或者用上面的 editable 安装,或把 clone 下来的目录放进 `PYTHONPATH`。
-- PyPI 发布在 roadmap 上:发布后就能写成 `uvx facenest-mcp`,配置更短。
+- **不装,一行命令直接跑**:`uvx facenest-mcp --selftest` —— `uv`/`uvx` 会从 PyPI 拉下来直接运行,配置里也能直接写 `uvx facenest-mcp`。
+- **从 GitHub 跑(不经过 PyPI)**:`uvx --from git+https://github.com/eclgo/facenest-mcp facenest-mcp --selftest`。
+- **要改适配器代码**:clone 下来 `python -m pip install -e .`,或把 clone 目录放进 `PYTHONPATH`。
 </details>
 
 ---

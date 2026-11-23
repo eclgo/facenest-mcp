@@ -16,10 +16,15 @@ version and links here, so the same instructions are not maintained in two place
 ## Install
 
 ```bash
-# Option A - from GitHub, no clone, via uv (works today; the package is not on PyPI yet)
-uvx --from git+https://github.com/eclgo/facenest-mcp facenest-mcp --selftest
+# Option A - install from PyPI (recommended)
+python -m pip install facenest-mcp
+facenest-mcp --selftest
 
-# Option B - editable install
+# Option B - one command, nothing installed (uv/uvx fetches it from PyPI and runs it)
+uvx facenest-mcp --selftest
+
+# Option C - from GitHub (no PyPI, or you want to edit the adapter)
+uvx --from git+https://github.com/eclgo/facenest-mcp facenest-mcp --selftest
 git clone https://github.com/eclgo/facenest-mcp.git
 cd facenest-mcp
 python -m pip install -e .

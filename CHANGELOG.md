@@ -27,9 +27,10 @@ Every entry is dated; the dates are commit dates.
 
 First public release. Development began in 2026-10 as a private project; the public changelog starts here.
 
-## Not released: PyPI
+## Published on PyPI - 2026-11-23
 
-The package is not published on PyPI, so `uvx facenest-mcp` fails. Use
-`uvx --from git+https://github.com/eclgo/facenest-mcp facenest-mcp` (no clone needed) or an
-editable install. Publishing is on the roadmap; when it happens, client configs shrink to
-`uvx facenest-mcp`.
+`facenest-mcp` 0.2.12 is on PyPI: <https://pypi.org/project/facenest-mcp/>. Install with
+`python -m pip install facenest-mcp`; a client config can now use `uvx facenest-mcp`, which is what
+the install pages say. The published wheel was installed from the index on this machine and its
+`facenest-mcp` entry point ran: `--help` printed the option list, and `--selftest` reported the two
+app-off cases as designed (no endpoint file → exit 2, a refused port → exit 3).

@@ -14,10 +14,15 @@
 ## 安装
 
 ```bash
-# 方案 A - 用 uv 直接从 GitHub 跑，不用 clone（今天就能用；包还没上 PyPI）
-uvx --from git+https://github.com/eclgo/facenest-mcp facenest-mcp --selftest
+# 方案 A - 从 PyPI 装（推荐）
+python -m pip install facenest-mcp
+facenest-mcp --selftest
 
-# 方案 B - 装成 editable
+# 方案 B - 不装，一行命令直接跑（uv/uvx 从 PyPI 拉下来就跑）
+uvx facenest-mcp --selftest
+
+# 方案 C - 从 GitHub 跑（不想用 PyPI，或要改适配器代码）
+uvx --from git+https://github.com/eclgo/facenest-mcp facenest-mcp --selftest
 git clone https://github.com/eclgo/facenest-mcp.git
 cd facenest-mcp
 python -m pip install -e .

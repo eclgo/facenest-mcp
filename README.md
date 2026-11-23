@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/img/logo.png" alt="FaceNest" width="96">
+<img src="https://raw.githubusercontent.com/eclgo/facenest-mcp/main/docs/img/logo.png" alt="FaceNest" width="96">
 
 # facenest-mcp
 
@@ -26,7 +26,7 @@
 > a local-first photo manager: faces, tags, AI captions and the semantic index all run on your own machine.
 > Only the **adapter** is open source (MIT); the app itself is closed source. **Photos, videos and the index never leave your computer.**
 
-<img src="docs/img/mcp-loop-880.gif" alt="46-second recorded loop: pick candidates by sharpness in an album, numbered contact sheet, user confirms by number, album created; then pick video frames by smiling and collect them as photos" width="100%">
+<img src="https://raw.githubusercontent.com/eclgo/facenest-mcp/main/docs/img/mcp-loop-880.gif" alt="46-second recorded loop: pick candidates by sharpness in an album, numbered contact sheet, user confirms by number, album created; then pick video frames by smiling and collect them as photos" width="100%">
 
 <p align="center"><sub>One 46-second local recording: the assistant's replies play at real speed (not accelerated), while tool calls and indexing waits are trimmed. Pick candidates by sharpness inside an album, lay them out as a numbered contact sheet, the user confirms by number, the album gets built; then pick video frames by smiling and collect them as photos. Everything on the local machine — the assistant never acts on its own.</sub></p>
 
@@ -62,10 +62,8 @@ Not for style points — so it runs on a machine that only has Python installed.
 
 ```bash
 # 1) In the app: Settings → AI agent (MCP) → turn on "Expose the MCP service", copy the endpoint file path
-# 2) Install the adapter
-git clone https://github.com/eclgo/facenest-mcp.git
-cd facenest-mcp
-python -m pip install -e .
+# 2) Install the adapter (it is on PyPI)
+python -m pip install facenest-mcp
 
 # 3) Self-test (no client needed)
 facenest-mcp --selftest
@@ -82,12 +80,11 @@ configs and the verification commands — is **[docs/QUICKSTART.md](docs/QUICKST
 > ⚠️ Use an **absolute** path in client configs: auto-detection depends on the process working directory and is unreliable under GUI clients.
 
 <details>
-<summary>Not on PyPI yet? Two alternatives</summary>
+<summary>No install? Not from PyPI? Three alternatives</summary>
 
-- **Works today, no PyPI needed**: `uvx --from git+https://github.com/eclgo/facenest-mcp facenest-mcp --selftest`
-  — `uv`/`uvx` pulls it straight from GitHub; no `git clone`, no `pip install -e .`.
-- Or use the editable install above, and put the clone on `PYTHONPATH`.
-- Publishing on PyPI is on the roadmap: once published, configs shrink to `uvx facenest-mcp`.
+- **Nothing installed, one command**: `uvx facenest-mcp --selftest` — `uv`/`uvx` fetches it from PyPI and runs it, and client configs can use `uvx facenest-mcp` directly.
+- **Straight from GitHub, no PyPI**: `uvx --from git+https://github.com/eclgo/facenest-mcp facenest-mcp --selftest`.
+- **Editing the adapter**: clone it and `python -m pip install -e .`, or put the clone on `PYTHONPATH`.
 </details>
 
 ---

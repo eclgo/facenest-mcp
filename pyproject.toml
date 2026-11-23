@@ -23,6 +23,9 @@ facenest-mcp = "facenest_mcp.server:main"
 
 [project.urls]
 Homepage = "https://facenest.net"
+Repository = "https://github.com/eclgo/facenest-mcp"
+Documentation = "https://github.com/eclgo/facenest-mcp/blob/main/docs/QUICKSTART.md"
+Changelog = "https://github.com/eclgo/facenest-mcp/blob/main/CHANGELOG.md"
 
 [tool.setuptools]
 packages = ["facenest_mcp"]

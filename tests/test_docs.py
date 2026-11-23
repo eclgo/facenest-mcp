@@ -196,7 +196,9 @@ class ToolsDocTest(unittest.TestCase):
          lambda line: "删" not in line and "delete" not in line.lower()),
         (r"\b(13|14)\s*(?:个错误码|error codes)", "there are %d error codes", None),
         (r"\b(3[1-9]|4\d|5\d)\s*(?:条规则|rules)\b", "an album takes at most 30 rules", None),
-        (r"(?<!not )published on PyPI", "the adapter is not published on PyPI", None),
+        (r"\bnot (?:published on|on) PyPI\b|还没上 ?PyPI|包还没上 ?PyPI",
+         "the adapter is on PyPI (0.2.12, 2026-11-23): pip install facenest-mcp / uvx facenest-mcp",
+         None),
         (r"top:\s*(1[3-9]|[2-9]\d)\b", "video picking top is clamped to 1..12", None),
         (r"C:[\\]+Users[\\]+(?!you\b|path\b|<|\{)",
          "a public page may only show a placeholder user path", None),
@@ -385,6 +387,36 @@ class CommunityFilesTest(unittest.TestCase):
         meta = read("pyproject.toml")
         self.assertIn(self.CONTACT, meta)
         self.assertNotIn("gmail.com", meta)
+
+    INSTALL_PAGES = ("README.md", "README.zh-CN.md",
+                     "docs/QUICKSTART.md", "docs/QUICKSTART.zh-CN.md")
+
+    def test_install_pages_name_the_pypi_install_lines(self):
+        """The package is on PyPI, so every page a reader copies from shows those commands.
+
+        Measured on 2026-11-23 after the first upload: the wheel installs from the index and the
+        installed `facenest-mcp` entry point runs. A page that only knows the clone route teaches
+        readers that the package is somewhere it no longer is.
+        """
+        for doc in self.INSTALL_PAGES:
+            text = read(doc)
+            self.assertIn("pip install facenest-mcp", text,
+                          "%s has no PyPI install line" % doc)
+            self.assertIn("uvx facenest-mcp", text, "%s has no uvx line" % doc)
+
+    def test_readme_images_are_absolute_urls(self):
+        """PyPI renders the README away from the repository, so a repo-relative src breaks there.
+
+        Measured on 2026-11-23 on the published page: a `docs/img/logo.png` src resolves under the
+        package URL and the page shows a broken-image icon, while the absolute raw URL answers
+        `200 image/png`. Both READMEs are the long description of the uploaded release, so both
+        are checked, and the rule is "absolute https" rather than "the file exists in the tree".
+        """
+        for doc in ("README.md", "README.zh-CN.md"):
+            for src in re.findall(r'<img[^>]*\bsrc="([^"]+)"', read(doc)):
+                self.assertTrue(src.startswith("https://"),
+                                "%s: <img src> must be an absolute https URL, PyPI cannot resolve %s"
+                                % (doc, src))
 
     def test_contributing_names_the_real_commands_and_generators(self):
         guide = read("CONTRIBUTING.md")
