@@ -377,6 +377,15 @@ class CommunityFilesTest(unittest.TestCase):
         self.assertIn("blank_issues_enabled: false", config)
         self.assertIn(self.CONTACT, config)
 
+    def test_packaging_metadata_publishes_the_contact_address(self):
+        # The account email a publisher registers with a package index is login-only: a reader
+        # sees the maintainer's user name, not that address. The contact a `pip` user can find
+        # is the one inside the package metadata, so it is asserted here and kept equal to the
+        # address the documentation names.
+        meta = read("pyproject.toml")
+        self.assertIn(self.CONTACT, meta)
+        self.assertNotIn("gmail.com", meta)
+
     def test_contributing_names_the_real_commands_and_generators(self):
         guide = read("CONTRIBUTING.md")
         self.assertIn("python -m unittest discover -s tests", guide)

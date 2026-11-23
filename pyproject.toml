@@ -9,7 +9,7 @@ description = "MCP server for the FaceNest desktop photo library (local, read-on
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }
-authors = [{ name = "FaceNest" }]
+authors = [{ name = "FaceNest", email = "support@facenest.net" }]
 keywords = ["mcp", "model-context-protocol", "photos", "facenest", "ai-agent"]
 classifiers = [
     "Programming Language :: Python :: 3",

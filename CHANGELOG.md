@@ -19,6 +19,9 @@ Every entry is dated; the dates are commit dates.
   documentation generators.
 - A code of conduct: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md). Conduct reports go to the same
   address as security reports, with a different subject prefix, and stay private.
+- The package metadata now carries the contact address the documentation already names, so
+  someone who installs with `pip` can reach a person without opening a GitHub issue.
+  `tests/test_docs.py` asserts the address in `pyproject.toml` is the same one the docs use.
 
 ## [0.2.12] - 2026-11-22
 
