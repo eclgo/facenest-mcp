@@ -22,6 +22,12 @@ Every entry is dated; the dates are commit dates.
 - The package metadata now carries the contact address the documentation already names, so
   someone who installs with `pip` can reach a person without opening a GitHub issue.
   `tests/test_docs.py` asserts the address in `pyproject.toml` is the same one the docs use.
+- On the index, the published 0.2.12 files were deleted the same day, so the index carries
+  **only 0.2.13**. PyPI does not let a deleted file name be uploaded again and deleting is
+  allowed within 72 hours of an upload ([PEP 763](https://peps.python.org/pep-0763/)), which is
+  why the fixed description went out as a new version. The two sections below describe the index
+  as it stood on 2026-11-23 at 15:26 (UTC+8), when 0.2.12 was published; this entry is the
+  current record.
 
 ## [0.2.13] - 2026-11-23
 
