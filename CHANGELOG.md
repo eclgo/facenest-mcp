@@ -23,6 +23,22 @@ Every entry is dated; the dates are commit dates.
   someone who installs with `pip` can reach a person without opening a GitHub issue.
   `tests/test_docs.py` asserts the address in `pyproject.toml` is the same one the docs use.
 
+## [0.2.13] - 2026-11-23
+
+The page on the package index is part of the release, and 0.2.12's page showed two broken images:
+both READMEs embedded `<img>` with a repo-relative `src`, which an index renders away from the
+repository, so it resolves outside it. The `src`s are absolute URLs now; the install pages lead
+with `python -m pip install facenest-mcp` and `uvx facenest-mcp --selftest` and keep the GitHub
+route as a third option; `pyproject.toml` names the repository, the install page and this file
+under `[project.urls]`.
+
+`tests/test_docs.py` gained two gates — the install pages must name both PyPI commands, and every
+README `<img src>` must be an absolute `https` URL — and the stale-claim rule was inverted, so a
+page that says the adapter is *not* on PyPI now fails the gate.
+
+0.2.12 stays on the index as it is. PyPI does not let a deleted file name be uploaded again, so a
+release with a fixed description needs a new version number, and this is that version.
+
 ## [0.2.12] - 2026-11-22
 
 First public release. Development began in 2026-10 as a private project; the public changelog starts here.
