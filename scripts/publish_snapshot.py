@@ -103,11 +103,13 @@ def export_tree(ref, dest):
                 tar.extractall(dest)
 
 
-def rewrite_changelog(path):
+def rewrite_changelog(path, strict_snippets=True):
     text = io.open(path, encoding="utf-8").read()
     # first the internal-history sentences (they quote hashes, so before the hash cleanup)
     for old, new in SNIPPETS:
         n = text.count(old)
+        if n == 0 and not strict_snippets:
+            continue  # already applied - the source tree is the public repository itself
         if n != 1:
             raise SystemExit("CHANGELOG snippet expected exactly once, found %d: %s"
                              % (n, old[:60]))
@@ -261,6 +263,11 @@ def main():
     ap.add_argument("--changelog-empty-release", action="store_true",
                     help="the release named by --changelog-from keeps its heading and the "
                          "\"First public release.\" note only: no Added/Changed/Fixed list")
+    ap.add_argument("--changelog-already-public", action="store_true",
+                    help="the source tree is the public repository: its CHANGELOG already "
+                          "went through the SNIPPETS rewrites, so a missing snippet is "
+                          "skipped instead of stopping the build (a snippet found twice "
+                          "still stops it)")
     a = ap.parse_args()
 
     if a.verify_only:
@@ -279,7 +286,8 @@ def main():
     n_files = len(subprocess.run(["git", "-C", ROOT, "ls-files"],
                                  capture_output=True).stdout.decode("utf-8").split())
 
-    changelog = rewrite_changelog(os.path.join(out, "CHANGELOG.md"))
+    changelog = rewrite_changelog(os.path.join(out, "CHANGELOG.md"),
+                                  strict_snippets=not a.changelog_already_public)
     frm = None
     if a.changelog_from:
         parts = a.changelog_from.split(".")
