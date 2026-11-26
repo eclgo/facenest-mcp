@@ -28,14 +28,17 @@ class Endpoint:
 
 
 def _candidate_paths() -> List[Path]:
-    """Ordered most likely to least likely: explicit env var, then common install locations."""
+    """Ordered most likely to least likely: explicit env vars, then common install locations."""
     out: List[Path] = []
     env_file = os.environ.get("FACENEST_ENDPOINT")
     if env_file:
         out.append(Path(env_file))
-    data_dir = os.environ.get("FACENEST_DATA_DIR")
-    if data_dir:
-        out.append(Path(data_dir) / "mcp_endpoint.json")
+    # Two names for the data folder: FACENEST_DATA_DIR is the adapter's own, FACE_DATA_DIR
+    # is the one FaceNest itself uses - a user who set it for the app means the same folder.
+    for var in ("FACENEST_DATA_DIR", "FACE_DATA_DIR"):
+        data_dir = os.environ.get(var)
+        if data_dir:
+            out.append(Path(data_dir) / "mcp_endpoint.json")
 
     home = Path.home()
     local = os.environ.get("LOCALAPPDATA")
@@ -46,8 +49,6 @@ def _candidate_paths() -> List[Path]:
     out += [
         Path.cwd() / "data" / "mcp_endpoint.json",
         Path.cwd() / "mcp_endpoint.json",
-        # Common dev layout: the FaceNest app checkout sits next to this repo.
-        Path.cwd().parent / "FaceNest" / "data" / "mcp_endpoint.json",
         home / "FaceNest" / "data" / "mcp_endpoint.json",
     ]
     return out
@@ -83,5 +84,6 @@ def load_endpoint(path: Optional[str] = None) -> Endpoint:
     raise EndpointError(
         "FaceNest's mcp_endpoint.json was not found. Do one of these:\n"
         "  1) Open FaceNest → Settings → AI agent (MCP) → tick \"Expose the MCP service\";\n"
-        "  2) Set the environment variable FACENEST_ENDPOINT=<full path to that file>.\n"
+        "  2) Pass the file that page shows: --endpoint \"<path copied from it>\";\n"
+        "  3) Or set the environment variable FACENEST_ENDPOINT=<full path to that file>.\n"
         "Locations already tried:\n  - " + "\n  - ".join(tried))
