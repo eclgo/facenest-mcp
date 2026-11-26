@@ -321,14 +321,12 @@ def main():
     print("badges swapped: README.md, README.zh-CN.md")
     print("internal leftovers: 0")
     print()
-    print("Next, from the snapshot directory (the push stays yours; set your own")
-    print("author identity first - it becomes public):")
+    print("Next, from the snapshot directory (the PyPI upload stays yours):")
     print("  cd %s" % out)
-    print("  git init -b main")
-    print("  git add -A")
-    print('  git commit -m "facenest-mcp %s: 28 tools, MCP over stdio"' % version)
-    print("  git remote add origin https://github.com/%s.git" % PUBLIC_REPO)
-    print("  git push -u origin main")
+    print("  python -m build")
+    print("  twine upload dist/*")
+    print("(The snapshot is the clean copy that passed the scan. The GitHub history is")
+    print("already public - nothing here needs pushing.)")
 
 
 if __name__ == "__main__":
