@@ -10,23 +10,24 @@
 - **Python 3.9 或更新**（适配器没有第三方依赖）。
 - App 生成的 **endpoint 文件**：`mcp_endpoint.json`。在 App 里：
   设置 → AI agent(MCP) → 打开「开放 MCP 服务」，把显示的 endpoint 文件路径复制出来。
+  同一个页面还会按客户端生成可直接粘贴的配置。
 
 ## 安装
 
 ```bash
 # 方案 A - 从 PyPI 装（推荐）
 python -m pip install facenest-mcp
-facenest-mcp --selftest
+facenest-mcp --selftest --endpoint "<App 设置页里显示的路径>"
 
 # 方案 B - 不装，一行命令直接跑（uv/uvx 从 PyPI 拉下来就跑）
-uvx facenest-mcp --selftest
+uvx facenest-mcp --selftest --endpoint "<App 设置页里显示的路径>"
 
 # 方案 C - 从 GitHub 跑（不想用 PyPI，或要改适配器代码）
-uvx --from git+https://github.com/eclgo/facenest-mcp facenest-mcp --selftest
+uvx --from git+https://github.com/eclgo/facenest-mcp facenest-mcp --selftest --endpoint "<路径>"
 git clone https://github.com/eclgo/facenest-mcp.git
 cd facenest-mcp
 python -m pip install -e .
-facenest-mcp --selftest
+facenest-mcp --selftest --endpoint "<App 设置页里显示的路径>"
 ```
 
 自检成功会打印一行，形如：
@@ -43,7 +44,7 @@ OK  http://127.0.0.1:<port>  api=1  images=1234  write_allowed=false
 ## 不启动客户端也能验
 
 ```bash
-facenest-mcp --selftest        # 通不通 + App 版本 + 写入状态
+facenest-mcp --selftest --endpoint "<App 设置页里显示的路径>"   # 通不通 + App 版本 + 写入状态
 facenest-mcp --list-tools      # 适配器对外发布的工具 schema
 facenest-mcp --agent-prompt    # 给 agent 的系统提示，可直接粘贴
 facenest-mcp --call facenest_ping                 # 直接调一个工具
@@ -51,7 +52,9 @@ facenest-mcp --call facenest_search --arg q=beach --arg mode=text
 ```
 
 `facenest_ping` 会回答 App 版本、看到多少张照片、写入是否允许——这是区分「适配器没问题」和
-「App 没开」最快的办法。
+「App 没开」最快的办法。`--list-tools` 和 `--agent-prompt` 从不连接 App；`--selftest` 与
+`--call` 需要 endpoint——要么显式给，要么自动查找命中（而自动查找只有当适配器从 FaceNest
+安装目录里启动时才会命中）。
 
 ## 接入客户端
 
@@ -110,8 +113,9 @@ args = ["-m", "facenest_mcp", "--endpoint", "C:\\path\\to\\mcp_endpoint.json"]
 **DSH / 其他客户端** —— 把上面任一段里的 `command` / `args` 照抄到该客户端的 MCP 配置里。
 
 > Windows 的 JSON / TOML 路径都要写成 `\\`。
-> 请优先写**绝对路径**的 `--endpoint`：自动查找依赖进程的工作目录，在 GUI 客户端里不可靠。
-> 也可以用环境变量 `FACENEST_ENDPOINT`。
+> 请优先写**绝对路径**的 `--endpoint`：自动查找依赖进程的工作目录，在 GUI 客户端里不可靠
+> ——它只有当适配器从 FaceNest 安装目录里启动时才会命中。
+> 也可以用环境变量 `FACENEST_ENDPOINT`（或 App 自己用的 `FACE_DATA_DIR`）。
 
 ## App 里的两个开关
 

@@ -12,23 +12,24 @@ version and links here, so the same instructions are not maintained in two place
 - **Python 3.9 or newer** (the adapter has no third-party dependencies).
 - The **endpoint file** the app writes: `mcp_endpoint.json`. In the app:
   Settings → AI agent (MCP) → turn on "Expose MCP service", then copy the file path shown.
+  The same page also generates a paste-ready client config for the clients it knows.
 
 ## Install
 
 ```bash
 # Option A - install from PyPI (recommended)
 python -m pip install facenest-mcp
-facenest-mcp --selftest
+facenest-mcp --selftest --endpoint "<path from the app's Settings page>"
 
 # Option B - one command, nothing installed (uv/uvx fetches it from PyPI and runs it)
-uvx facenest-mcp --selftest
+uvx facenest-mcp --selftest --endpoint "<path from the app's Settings page>"
 
 # Option C - from GitHub (no PyPI, or you want to edit the adapter)
-uvx --from git+https://github.com/eclgo/facenest-mcp facenest-mcp --selftest
+uvx --from git+https://github.com/eclgo/facenest-mcp facenest-mcp --selftest --endpoint "<path>"
 git clone https://github.com/eclgo/facenest-mcp.git
 cd facenest-mcp
 python -m pip install -e .
-facenest-mcp --selftest
+facenest-mcp --selftest --endpoint "<path from the app's Settings page>"
 ```
 
 A successful self-test prints one line like:
@@ -48,7 +49,7 @@ Any other result (exit code 1 / 2 / 3) is covered in
 ## Verify without a client
 
 ```bash
-facenest-mcp --selftest        # reachability + app version + write state
+facenest-mcp --selftest --endpoint "<path from the app's Settings page>"   # reachability + app version + write state
 facenest-mcp --list-tools      # the tool schema the adapter publishes
 facenest-mcp --agent-prompt    # the system prompt to paste into your agent
 facenest-mcp --call facenest_ping                 # call one tool directly
@@ -57,6 +58,9 @@ facenest-mcp --call facenest_search --arg q=beach --arg mode=text
 
 `facenest_ping` answers with the app version, how many photos it sees, and whether writes are
 allowed — that is the fastest way to tell "the adapter works" from "the app is closed".
+`--list-tools` and `--agent-prompt` never talk to the app; `--selftest` and `--call` need the
+endpoint — passed explicitly, or auto-detected, which only hits when the adapter is started
+from inside the FaceNest install folder.
 
 ## Connect a client
 
@@ -117,8 +121,9 @@ MCP config.
 
 > On Windows write JSON / TOML paths as `\\`.
 > Prefer an **absolute** `--endpoint`: auto-detection depends on the process working
-> directory, which is unreliable in GUI clients. `FACENEST_ENDPOINT` works as an environment
-> variable.
+> directory, which is unreliable in GUI clients — it only ever hits when the adapter is
+> started inside the FaceNest install folder. `FACENEST_ENDPOINT` works as an environment
+> variable (so does the app's own `FACE_DATA_DIR`).
 
 ## The two switches in the app
 

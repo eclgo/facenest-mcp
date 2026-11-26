@@ -61,16 +61,21 @@ Not for style points — so it runs on a machine that only has Python installed.
 👉 [facenest.net/download](https://facenest.net/download) · Windows today; the current macOS status is stated on the website.
 
 ```bash
-# 1) In the app: Settings → AI agent (MCP) → turn on "Expose the MCP service", copy the endpoint file path
-# 2) Install the adapter (it is on PyPI)
+# 1) In the app: Settings → AI agent (MCP) → turn on "Expose the MCP service".
+#    That page shows the endpoint file path, and it generates a paste-ready config for
+#    common clients — that config runs on the Python already inside the FaceNest folder,
+#    so nothing has to be installed to use it.
+# 2) Prove the link from a terminal (optional, but the fastest check; needs the adapter):
 python -m pip install facenest-mcp
-
-# 3) Self-test (no client needed)
-facenest-mcp --selftest
+facenest-mcp --selftest --endpoint "<path copied in step 1>"
 # → OK  http://127.0.0.1:<port>  api=1  images=1234  write_allowed=false
 ```
 
-`OK` means it is connected. Next, paste the **absolute** path of the endpoint file into your client config ([below](#connect-a-client)).
+`OK` means the adapter reached the app. Paste the config from step 1 into your client
+([below](#connect-a-client)) — it already carries the **absolute** endpoint path. If you
+start the adapter yourself instead, always pass `--endpoint` with an absolute path: the
+automatic search starts from the folder the process was launched in, which is rarely the
+FaceNest folder.
 
 The full install page — the `uvx` one-liner, the editable install, the four paste-ready client
 configs and the verification commands — is **[docs/QUICKSTART.md](docs/QUICKSTART.md)**.
@@ -82,7 +87,7 @@ configs and the verification commands — is **[docs/QUICKSTART.md](docs/QUICKST
 <details>
 <summary>No install? Not from PyPI? Three alternatives</summary>
 
-- **Nothing installed, one command**: `uvx facenest-mcp --selftest` — `uv`/`uvx` fetches it from PyPI and runs it, and client configs can use `uvx facenest-mcp` directly.
+- **Nothing installed, one command**: `uvx facenest-mcp --selftest --endpoint "<path from step 1>"` — `uv`/`uvx` fetches it from PyPI and runs it, and client configs can use `uvx facenest-mcp` directly.
 - **Straight from GitHub, no PyPI**: `uvx --from git+https://github.com/eclgo/facenest-mcp facenest-mcp --selftest`.
 - **Editing the adapter**: clone it and `python -m pip install -e .`, or put the clone on `PYTHONPATH`.
 </details>

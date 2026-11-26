@@ -11,7 +11,7 @@ cd facenest-mcp
 python -m pip install -e .
 
 python -m unittest discover -s tests        # the whole suite, no app needed
-facenest-mcp --selftest                     # needs the app running on this machine
+facenest-mcp --selftest --endpoint "<path from the app's Settings page>"   # needs the app running on this machine
 ```
 
 Python 3.9 or newer. **The suite does not need the app running** — that is deliberate: a

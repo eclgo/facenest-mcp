@@ -58,16 +58,17 @@
 👉 [facenest.net/download](https://facenest.net/download) · 目前 Windows；macOS 的当前状态见官网。
 
 ```bash
-# 1) App 里:设置 → AI agent(MCP)→ 打开“开放 MCP 服务”,复制 endpoint 文件路径
-# 2) 装适配器(已上 PyPI)
+# 1) App 里:设置 → AI agent(MCP)→ 打开“开放 MCP 服务”。
+#    那一页会显示 endpoint 文件路径,还会按客户端生成可直接粘贴的配置——
+#    那份配置用的就是 FaceNest 目录里自带的 Python,走这条路什么都不用装。
+# 2) 终端里证明连接(可选,但最快;需要先装适配器):
 python -m pip install facenest-mcp
-
-# 3) 自检(不启动客户端也能验证)
-facenest-mcp --selftest
+facenest-mcp --selftest --endpoint "<第 1 步复制的路径>"
 # → OK  http://127.0.0.1:<port>  api=1  images=1234  write_allowed=false
 ```
 
-看到 `OK` 就通了。接下来把 endpoint 的**绝对路径**粘贴到客户端配置([见下方](#接入客户端))。
+看到 `OK` 就是通了。把第 1 步生成的配置粘贴进客户端([见下方](#接入客户端))——里面已经带好**绝对路径**。
+要自己启动适配器的话,请始终明写 `--endpoint` 绝对路径:自动查找从进程启动的目录开始,那里很少正好是 FaceNest 的目录。
 
 完整装法(`uvx` 一行命令、editable 安装、四段可直接复制的客户端配置、逐条验证命令)在
 **[docs/QUICKSTART.md](docs/QUICKSTART.md)**。
@@ -79,7 +80,7 @@ facenest-mcp --selftest
 <details>
 <summary>不想装?不想用 PyPI?三条替代路</summary>
 
-- **不装,一行命令直接跑**:`uvx facenest-mcp --selftest` —— `uv`/`uvx` 会从 PyPI 拉下来直接运行,配置里也能直接写 `uvx facenest-mcp`。
+- **不装,一行命令直接跑**:`uvx facenest-mcp --selftest --endpoint "<第 1 步的路径>"` —— `uv`/`uvx` 会从 PyPI 拉下来直接运行,配置里也能直接写 `uvx facenest-mcp`。
 - **从 GitHub 跑(不经过 PyPI)**:`uvx --from git+https://github.com/eclgo/facenest-mcp facenest-mcp --selftest`。
 - **要改适配器代码**:clone 下来 `python -m pip install -e .`,或把 clone 目录放进 `PYTHONPATH`。
 </details>
