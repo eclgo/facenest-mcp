@@ -29,6 +29,20 @@ Every entry is dated; the dates are commit dates.
   as it stood on 2026-11-23 at 15:26 (UTC+8), when 0.2.12 was published; this entry is the
   current record.
 
+## [0.2.14] - 2026-11-26
+
+The endpoint-file failure path used to end in a wall of tried paths and no next step. The
+not-found message now names the flag and the page that shows the path (`--endpoint "<path
+copied from Settings → AI agent (MCP)>"`); auto-detection also reads `FACE_DATA_DIR` (the
+data-folder variable FaceNest itself uses) next to `FACENEST_DATA_DIR`; and the
+`<cwd>/../FaceNest/data` guess is gone - it matched only one developer's checkout layout and
+could pick up a stale copy and connect to the wrong target. Every self-test line on the
+install pages (README, Quick start, Contributing) now passes the absolute `--endpoint`, the
+install pages lead with the config the app's own Settings page generates - that config runs
+on the Python inside the FaceNest folder, so nothing has to be installed to use it - and the
+pages state where auto-detection can and cannot hit. `tests/test_endpoint.py` gained gates
+for both environment names, for the message naming `--endpoint`, and for the removed guess.
+
 ## [0.2.13] - 2026-11-23
 
 The page on the package index is part of the release, and 0.2.12's page showed two broken images:
