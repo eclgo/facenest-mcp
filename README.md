@@ -88,7 +88,7 @@ configs and the verification commands — is **[docs/QUICKSTART.md](docs/QUICKST
 <summary>No install? Not from PyPI? Three alternatives</summary>
 
 - **Nothing installed, one command**: `uvx facenest-mcp --selftest --endpoint "<path from step 1>"` — `uv`/`uvx` fetches it from PyPI and runs it, and client configs can use `uvx facenest-mcp` directly.
-- **Straight from GitHub, no PyPI**: `uvx --from git+https://github.com/eclgo/facenest-mcp facenest-mcp --selftest`.
+- **Straight from GitHub, no PyPI**: `uvx --from git+https://github.com/eclgo/facenest-mcp facenest-mcp --selftest --endpoint "<path copied in step 1>"`.
 - **Editing the adapter**: clone it and `python -m pip install -e .`, or put the clone on `PYTHONPATH`.
 </details>
 

@@ -81,7 +81,7 @@ facenest-mcp --selftest --endpoint "<第 1 步复制的路径>"
 <summary>不想装?不想用 PyPI?三条替代路</summary>
 
 - **不装,一行命令直接跑**:`uvx facenest-mcp --selftest --endpoint "<第 1 步的路径>"` —— `uv`/`uvx` 会从 PyPI 拉下来直接运行,配置里也能直接写 `uvx facenest-mcp`。
-- **从 GitHub 跑(不经过 PyPI)**:`uvx --from git+https://github.com/eclgo/facenest-mcp facenest-mcp --selftest`。
+- **从 GitHub 跑(不经过 PyPI)**:`uvx --from git+https://github.com/eclgo/facenest-mcp facenest-mcp --selftest --endpoint "<第 1 步复制的路径>"`。
 - **要改适配器代码**:clone 下来 `python -m pip install -e .`,或把 clone 目录放进 `PYTHONPATH`。
 </details>
 
