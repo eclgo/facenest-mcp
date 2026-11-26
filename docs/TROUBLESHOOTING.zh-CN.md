@@ -7,7 +7,7 @@ App 与适配器能告诉你的事，都收在这页：现象 → 含义 → 怎
 
 | 退出码 | 含义 | 怎么办 |
 |---|---|---|
-| **2** | 找不到 endpoint 文件 | 打开 App：设置 → AI agent(MCP)，确认服务是开的；并显式给路径：`facenest-mcp --endpoint <mcp_endpoint.json 的绝对路径>` |
+| **2** | 找不到 endpoint 文件 | 打开 App：设置 → AI agent(MCP)，确认服务是开的；然后显式给出那一页显示的路径：`facenest-mcp --selftest --endpoint "<绝对路径>"` |
 | **3** | 那个端口上没人监听 | App 没开，或 MCP 开关是关的。启动 App / 打开开关 |
 | **1** | 连上了，但被拒绝 | 令牌被重置，或写 endpoint 文件之后开关被关掉。在 App 里重新打开 MCP，再跑一次 `--selftest` |
 
@@ -43,9 +43,10 @@ App 的**「允许写入」开关**是关的。它是第二个、独立的开关
 
 几乎都是 endpoint 路径问题：
 
-- `--endpoint` 请用**绝对路径**。自动查找依赖进程工作目录，而 GUI 客户端的工作目录不可预期。
+- `--endpoint` 请用**绝对路径**。自动查找依赖进程工作目录，而 GUI 客户端的工作目录不可预期；
+  它只有当适配器从 FaceNest 安装目录里启动时才会命中。
 - Windows 的 JSON / TOML 里路径要写成 `\\`。
-- 环境变量 `FACENEST_ENDPOINT` 也会被读取。
+- 环境变量 `FACENEST_ENDPOINT` 也会被读取（App 自己用的 `FACE_DATA_DIR` 同样会）。
 - 客户端必须调用**装了适配器的那个 Python**。在终端跑 `facenest-mcp --selftest` 可以证明适配器这侧是通的；终端通、客户端不通，就是客户端的 `command` 指向了另一个 Python。
 
 ## App 重启后端口变了

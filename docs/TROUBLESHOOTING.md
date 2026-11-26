@@ -8,7 +8,7 @@ in [docs/TOOLS.md](TOOLS.md), generated from the tool schema.
 
 | Exit code | Meaning | Fix |
 |---|---|---|
-| **2** | Endpoint file not found | Open the app: Settings → AI agent (MCP), confirm the service is on, and pass the path explicitly: `facenest-mcp --endpoint <absolute path to mcp_endpoint.json>` |
+| **2** | Endpoint file not found | Open the app: Settings → AI agent (MCP), confirm the service is on, then pass the path that page shows: `facenest-mcp --selftest --endpoint "<absolute path>"` |
 | **3** | Nothing is listening on that port | The app is closed, or the MCP switch is off. Start the app / turn the switch on |
 | **1** | Reached the app, and it refused | The token was reset, or the switch was turned off after the endpoint file was written. Re-open MCP in the app, then re-run `--selftest` |
 
@@ -48,9 +48,11 @@ endpoint file.
 Almost always the endpoint path:
 
 - Use an **absolute** path in `--endpoint`. Auto-detection depends on the process working
-  directory, and GUI clients do not have a predictable one.
+  directory, and GUI clients do not have a predictable one — it only ever hits when the
+  adapter is started inside the FaceNest install folder.
 - On Windows, paths inside JSON / TOML must be written with `\\`.
-- The environment variable `FACENEST_ENDPOINT` is also read.
+- The environment variable `FACENEST_ENDPOINT` is also read (so is the app's own
+  `FACE_DATA_DIR`).
 - The client must run the same Python that has the adapter installed. `facenest-mcp --selftest`
   in a terminal proves the adapter side; if the terminal works and the client does not, the
   client's `command` points at a different Python.

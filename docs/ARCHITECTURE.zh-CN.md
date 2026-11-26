@@ -23,7 +23,7 @@ FaceNest App  —  图库、模型、数据库、额度都在这儿
 |---|---|---|
 | MCP 服务 + 工具注册表 | `facenest_mcp/server.py` | 在 stdio 上说 MCP 协议；持有 `TOOLS`（工具名、参数、说明）与 `AGENT_PROMPT`（系统提示）；实现 CLI（`--selftest`、`--list-tools`、`--agent-prompt`、`--call`） |
 | App API 客户端 | `facenest_mcp/api.py` | 调用 App 的本地 HTTP 端点、解析 endpoint；**每次调用都重新读 endpoint 文件**，App 重启后端口/令牌变化会被自动跟上 |
-| Endpoint 解析 | `facenest_mcp/endpoint.py` | 找 `mcp_endpoint.json`（先 `--endpoint`，再环境变量 `FACENEST_ENDPOINT`，再常见位置） |
+| Endpoint 解析 | `facenest_mcp/endpoint.py` | 找 `mcp_endpoint.json`（先 `--endpoint`，再环境变量 `FACENEST_ENDPOINT` / `FACENEST_DATA_DIR` / `FACE_DATA_DIR`，再常见位置） |
 | 错误目录 | `facenest_mcp/errors.py` | 每个 `ERR_…` 码的含义、下一步做什么、要不要重试 |
 | App 侧（不在本仓库） | FaceNest 应用里的内嵌副本 | 适配器随 App 一起发布；FaceNest 侧有同步与校验脚本保证它与本仓库一致。会话额度与两个权限开关都由 App 强制执行 |
 

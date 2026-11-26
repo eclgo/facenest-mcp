@@ -25,7 +25,7 @@ the running app, and the app answers only on loopback.
 |---|---|---|
 | MCP server + tool registry | `facenest_mcp/server.py` | Speaks MCP on stdio, holds `TOOLS` (the tool list: names, parameters, descriptions) and `AGENT_PROMPT` (the system prompt), implements the CLI (`--selftest`, `--list-tools`, `--agent-prompt`, `--call`) |
 | App API client | `facenest_mcp/api.py` | Calls the app's local HTTP endpoints, resolves the endpoint, re-reads it on every call so a port/token change after an app restart is picked up |
-| Endpoint resolution | `facenest_mcp/endpoint.py` | Finds `mcp_endpoint.json` (explicit `--endpoint`, then `FACENEST_ENDPOINT`, then the usual locations) |
+| Endpoint resolution | `facenest_mcp/endpoint.py` | Finds `mcp_endpoint.json` (explicit `--endpoint`, then the environment variables `FACENEST_ENDPOINT` / `FACENEST_DATA_DIR` / `FACE_DATA_DIR`, then the usual locations) |
 | Error catalogue | `facenest_mcp/errors.py` | Every `ERR_…` code with its meaning, the next step, and whether to retry |
 | App side (not this repo) | a copy shipped inside the FaceNest app | The adapter travels with the app; the FaceNest side keeps that copy in step with this repository through its own sync and verification scripts. The app also enforces session quotas and the two switches |
 
