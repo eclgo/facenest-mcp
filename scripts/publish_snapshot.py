@@ -213,6 +213,8 @@ def trim_changelog(path, frm=None, drop_housekeeping=False, release_date=None,
 def swap_badge(path):
     text = io.open(path, encoding="utf-8").read()
     n = len(STATIC_BADGE_RE.findall(text))
+    if n == 0 and BADGE in text:
+        return  # already swapped - the source tree is the public repository itself
     if n != 1:
         raise SystemExit("%s: expected exactly one static unittest badge, found %d"
                          % (path, n))
