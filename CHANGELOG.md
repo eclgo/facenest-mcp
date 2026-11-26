@@ -7,28 +7,6 @@ own version (`FaceNest 1.4.x`).
 
 Every entry is dated; the dates are commit dates.
 
-## [Unreleased]
-
-### Added
-
-- A security policy, a contributor guide and issue forms: [SECURITY.md](SECURITY.md),
-  [CONTRIBUTING.md](CONTRIBUTING.md) and `.github/ISSUE_TEMPLATE/` (bug report, feature request,
-  and a contact list that sends security reports to email instead of a public issue).
-  `tests/test_docs.py` now asserts those files exist, that the links in them point at pages that
-  are in the tree, and that the contributor guide names the real test command and the two
-  documentation generators.
-- A code of conduct: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md). Conduct reports go to the same
-  address as security reports, with a different subject prefix, and stay private.
-- The package metadata now carries the contact address the documentation already names, so
-  someone who installs with `pip` can reach a person without opening a GitHub issue.
-  `tests/test_docs.py` asserts the address in `pyproject.toml` is the same one the docs use.
-- On the index, the published 0.2.12 files were deleted the same day, so the index carries
-  **only 0.2.13**. PyPI does not let a deleted file name be uploaded again and deleting is
-  allowed within 72 hours of an upload ([PEP 763](https://peps.python.org/pep-0763/)), which is
-  why the fixed description went out as a new version. The two sections below describe the index
-  as it stood on 2026-11-23 at 15:26 (UTC+8), when 0.2.12 was published; this entry is the
-  current record.
-
 ## [0.2.14] - 2026-11-26
 
 The endpoint-file failure path used to end in a wall of tried paths and no next step. The
@@ -42,6 +20,14 @@ install pages lead with the config the app's own Settings page generates - that 
 on the Python inside the FaceNest folder, so nothing has to be installed to use it - and the
 pages state where auto-detection can and cannot hit. `tests/test_endpoint.py` gained gates
 for both environment names, for the message naming `--endpoint`, and for the removed guess.
+
+On the index, the published 0.2.12 files were deleted the same day, so the index carries
+**only 0.2.13**. Deleting on PyPI is permanent, and a deleted file name can never be
+uploaded again ([PyPI's troubleshooting page](https://docs.pypi.org/project-management/troubleshooting/#how-can-i-restore-a-deleted-project-release-or-file)),
+so a release with a fixed description needs a new version number - which is why the fixed
+description went out as 0.2.13. The last paragraph of the 0.2.13 section and the "Published
+on PyPI" section below describe the index as it stood on 2026-11-23 at 15:26 (UTC+8), when
+0.2.12 was published; this paragraph is the current record.
 
 ## [0.2.13] - 2026-11-23
 
@@ -58,6 +44,18 @@ page that says the adapter is *not* on PyPI now fails the gate.
 
 0.2.12 stays on the index as it is. PyPI does not let a deleted file name be uploaded again, so a
 release with a fixed description needs a new version number, and this is that version.
+
+The same release cycle also gave the repository its front door: a security policy
+([SECURITY.md](SECURITY.md)), a contributor guide ([CONTRIBUTING.md](CONTRIBUTING.md)) and
+issue forms (bug report, feature request, and a contact list that sends security reports to
+email instead of a public issue), plus a code of conduct
+([CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)) — conduct reports go to the same address as
+security reports, with a different subject prefix, and stay private. The package metadata
+now carries the contact address the documentation already names, so someone who installs
+with `pip` can reach a person without opening a GitHub issue. `tests/test_docs.py` asserts
+those files exist, that the links in them point at pages that are in the tree, that the
+contributor guide names the real test command and the two documentation generators, and
+that the address in `pyproject.toml` is the same one the docs use.
 
 ## [0.2.12] - 2026-11-22
 
